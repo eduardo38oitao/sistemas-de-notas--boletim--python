@@ -1,13 +1,16 @@
 #importamos a arquivo boletim
 
-from boletim import Aluno
+from boletim import BoletimEscolar
 
 
-aluno = Aluno("caio","moraes",17,3,10)
 
+    # Criando o objeto do aluno
+boletim = BoletimEscolar("Carlos Silva", "Programação", [5.5, 6.0, 4.0, 5.0])
 
-aluno.notas()
+# Exibindo o boletim antes da recuperação
+print("--- Antes da Recuperação ---")
+print(boletim.emitir_boletim())
 
-aluno.faltas(100)
-
-
+# Exibindo o boletim após uma nota de recuperação
+print("\n--- Após a Recuperação ---")
+print(boletim.emitir_boletim(nota_recuperacao=7.5))
