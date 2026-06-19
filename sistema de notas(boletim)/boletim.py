@@ -1,66 +1,128 @@
-class BoletimEscolar:
-    def __init__(self, aluno, disciplina, notas):
-        # Atributos privados usando o '__'
-        self.__aluno = aluno
-        self.__disciplina = disciplina
-        # Chama o método privado para validar as notas no inicio
-        self.__notas = self.__validar_notas(notas)
+class Boletim:
+    # Método Estático: Exibe o cabeçalho do colégio sem precisar criar um aluno antes
+    @staticmethod
+    def exibir_cabecalho():
+        print( "////////// COLEGIO ESTADUAL ANTÔNIO DE MORAES BARROS ////////////" )
+        print( "///////// SISTEMA DE LANÇAMENTO DE NOTAS ////////////" )
 
-    # 1. MÉTODO PRIVADO: Ajuda na validação
-    def __validar_notas(self, notas) :
-        if len(notas) == 4:
-            return notas
-        return [0.0, 0.0, 0.0, 0.0]
+    # Construtor: Cria o boletim com atributos privados (USAM __)
+    def __init__(self, aluno, nota1, nota2):
+        self.__aluno = aluno    # Isso é um atributo privado
+        self.__nota1 = nota1    # Isso é um atributo privado
+        self.__nota2 = nota2    # Isso é um atributo privado
 
-    # DECORADORES: Getters e Setters para colocar os atributos privados com segurança
+    # Decorador @property: Permite ler o nome do aluno de forma segura
     @property
-    def aluno(self) :
+    def aluno(self):
+        return self.__aluno
+    
+    # Decorador @property: Permite ler a primeira nota
+    @property
+    def nota1(self):
+        return self.__nota1
+    
+    # Decorador @property: Permite ler a segunda nota
+    @property
+    def nota1(self):
+        return self.__nota1
+    
+ # Metodo privado: Valida se a nota está entre 0 e 10 
+    def __nota_e_validade(self, nota):
+        if media_final >= 6.0:
+            print("Situação: APROVADO(A)!")
+        else:
+            print("Situação: EM RECUPERAÇÃO!")
+# Método Público: Calcula a média do aluno
+    def calcular_media(self):
+        # Valida as duas notas antes de fazer o cálculo
+        if self.__nota_e_valida(self.__nota1) and self.__nota_e_valida(self.__nota2):
+            media = (self.__nota1 + self.__nota2) / 2
+            return media
+        return 0
+
+
+   class Boletim:
+    # Método Estático: Exibe o cabeçalho do colégio sem precisar criar um aluno antes
+    @staticmethod
+    def exibir_cabecalho():
+        print("=== COLÉGIO ESTADUAL ANTÔNIO DE MORAES BARROS ===")
+        print("=== SISTEMA DE LANÇAMENTO DE NOTAS ===")
+
+    # Construtor: Cria o boletim com atributos privados (usam __)
+    def __init__(self, aluno, nota1, nota2):
+        self.__aluno = aluno       # Atributo privado
+        self.__nota1 = nota1       # Atributo privado
+        self.__nota2 = nota2       # Atributo privado
+
+    # Decorador @property: Permite ler o nome do aluno de forma segura
+    @property
+    def aluno(self):
         return self.__aluno
 
-    @aluno.setter
-    def aluno(self, novo_aluno):
-        self.__aluno = novo_aluno
-
+    # Decorador @property: Permite ler a primeira nota
     @property
-    def disciplina(self) :
-        return self.__disciplina
+    def nota1(self):
+        return self.__nota1
 
+    # Decorador @property: Permite ler a segunda nota
     @property
-    def notas(self) :
-        return self.__notas
+    def nota2(self):
+        return self.__nota2
 
-    @notas.setter
-    def notas(self, novas_notações):
-        self.__notas = self.__validar_notas(novas_notações)
-
-    # 2. Não depende do 'self', analisa apenas o valor que recebe
-    @staticmethod
-    def definir_situacao(media):
-        if media >= 6.0:
-            return "APROVADO"
-        elif media >= 4.0:
-            return "RECUPERAÇÃO"
+    # Método Privado: Valida se a nota está entre 0 e 10 (regra interna)
+    def __nota_e_valida(self, nota):
+        if 0 <= nota <= 10:
+            return True
         else:
-            return "REPROVADO"
+            print("Erro: A nota digitada deve ser entre 0 e 10!")
+            return False
 
-    # 3.Calcula a média simples das notas
-    def calcular_media(self) :
-        return sum(self.__notas) / 4
+    # Método Público: Calcula a média do aluno
+    def calcular_media(self):
+        # Valida as duas notas antes de fazer o cálculo
+        if self.__nota_e_valida(self.__nota1) and self.__nota_e_valida(self.__nota2):
+            media = (self.__nota1 + self.__nota2) / 2
+            return media
+        return 0
 
-    # 4. Gera o dicionário com o boletim completo
-    def emitir_boletim(self, nota_recuperacao):
+    # Método Público: Mostra a situação (Aprovado ou Recuperação)
+    def exibir_situacao(self):
         media_final = self.calcular_media()
-        
-        if nota_recuperacao > media_final:
-            media_final = (media_final + nota_recuperacao) / 2
-            
-        # Utiliza o método estático para descobrir a situação
-        situacao = BoletimEscolar.definir_situacao(media_final)
-        
-        return {
-            "Aluno": self.__aluno,
-            "Disciplina": self.__disciplina,
-            "Notas": self.__notas,
-            "Média Final":(media_final, 1),
-            "Situação": situacao
-        }
+        print(f"Média Final: {media_final:.1f}")
+       
+        # Se a média for 6 ou mais, está aprovado
+        if media_final >= 6.0:
+            print("Situação: APROVADO(A)!")
+        else:
+            print("Situação: EM RECUPERAÇÃO!")
+
+
+# === TESTANDO O SISTEMA (Demonstração para a turma) ===
+
+
+
+
+
+
+
+# 1. Chamando o método estático
+Boletim.exibir_cabecalho()
+print()
+
+# 2. Criando o boletim de um aluno (Instanciando a classe)
+boletim_alex = Boletim("Alex Silva", 7.5, 8.5)
+
+# 3. Usando os decoradores @property para mostrar os dados
+print(f"Aluno: {boletim_alex.aluno}")
+print(f"Nota 1: {boletim_alex.nota1}")
+print(f"Nota 2: {boletim_alex.nota2}")
+
+# 4. Chamando os métodos públicos para ver o resultado
+print("\n--- Resultado Final ---")
+boletim_alex.exibir_situacao()
+
+# 5. Testando um caso de recuperação para demonstrar o sistema funcionando
+print("\n" + "="*40 + "\n")
+boletim_lucas = Boletim("Lucas Lima", 4.0, 5.5)
+print(f"Aluno: {boletim_lucas.aluno}")
+boletim_lucas.exibir_situacao()

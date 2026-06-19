@@ -1,16 +1,27 @@
 #importamos a arquivo boletim
 
-from boletim import BoletimEscolar
+from boletim import Boletim
 
 
 
-    # Criando o objeto do aluno
-boletim = BoletimEscolar("Carlos Silva", "Programação", [5.5, 6.0, 4.0, 5.0])
+# 1. Chamando o método estático
+Boletim.exibir_cabecalho()
+print()
 
-# Exibindo o boletim antes da recuperação
-print("--- Antes da Recuperação ---")
-print(boletim.emitir_boletim())
+# 2. Criando o boletim de um aluno (Instanciando a classe)
+boletim_alex = Boletim("Alex Silva", 7.5, 8.5)
 
-# Exibindo o boletim após uma nota de recuperação
-print("\n--- Após a Recuperação ---")
-print(boletim.emitir_boletim(nota_recuperacao=7.5))
+# 3. Usando os decoradores @property para mostrar os dados
+print(f"Aluno: {boletim_alex.aluno}")
+print(f"Nota 1: {boletim_alex.nota1}")
+print(f"Nota 2: {boletim_alex.nota2}")
+
+# 4. Chamando os métodos públicos para ver o resultado
+print("\n--- Resultado Final ---")
+boletim_alex.exibir_situacao()
+
+# 5. Testando um caso de recuperação para demonstrar o sistema funcionando
+print("\n" + "="*40 + "\n")
+boletim_lucas = Boletim("Lucas Lima", 4.0, 5.5)
+print(f"Aluno: {boletim_lucas.aluno}")
+boletim_lucas.exibir_situacao()
